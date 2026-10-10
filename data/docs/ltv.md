@@ -1,0 +1,3 @@
+# LTV
+
+Lifetime value (LTV) is the total revenue a user generates over their life in the product. By-cohort LTV sums order amounts per user and averages within a signup cohort. Cohort LTV must be compared at the same age: a cohort that signed up last month looks smaller than one from six months ago simply because it has had less time to spend, not because it is worse. LTV is often paired with customer acquisition cost (CAC); the LTV-to-CAC ratio shows whether a channel is sustainable. Cumulative LTV curves that flatten signal that spending happens early; rising curves signal a product with repeat purchases, which is where retention investment pays back.

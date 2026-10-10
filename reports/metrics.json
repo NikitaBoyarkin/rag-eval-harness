@@ -1,0 +1,14 @@
+{
+  "n": 20,
+  "k": 5,
+  "llm_used": false,
+  "retrieval": {
+    "recall@k": 1.0,
+    "mrr": 1.0,
+    "precision@k": 0.2
+  },
+  "generation": {
+    "faithfulness": 1.0,
+    "correctness": 0.369
+  }
+}

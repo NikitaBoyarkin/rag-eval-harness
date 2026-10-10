@@ -1,0 +1,3 @@
+# Cohort Analysis
+
+Cohort analysis groups users by a shared start event, usually the signup month, and tracks a metric for each cohort over time. The cohort retention matrix has cohorts as rows, time since signup as columns, and a retention rate in each cell. The matrix is triangular: a cohort that signed up last month has only one column observed, while an older cohort has many. Reading the matrix down a column compares cohorts at the same age; reading across a row shows how a single cohort decays. Cohort analysis separates a real retention problem (newer cohorts retain worse at the same age) from a simple age artifact (a young cohort looks smaller only because it is young).

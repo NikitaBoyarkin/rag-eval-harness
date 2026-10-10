@@ -1,0 +1,3 @@
+# Funnel Analysis
+
+Funnel analysis tracks how many users complete a sequence of steps, such as app open, view item, add to cart, checkout, and purchase. For each step you count the distinct sessions that reached it, then compute step-to-step conversion (this step divided by the previous) and overall conversion (this step divided by the first). The sharpest drop identifies the highest-leverage step to fix. Funnel conversion is measured at the session level when each session is one attempt, or at the user level when a purchase can happen across sessions; mixing the two gives misleading rates. The output is a small table of counts and percentages, but the decision is where to focus: the step with the largest loss, not the step with the lowest absolute count.

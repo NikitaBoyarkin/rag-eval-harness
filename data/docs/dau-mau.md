@@ -1,0 +1,3 @@
+# DAU, MAU, and Stickiness
+
+Daily Active Users (DAU) is the number of distinct users active on a given day. Monthly Active Users (MAU) is the number active in a trailing 28-day window. Stickiness is DAU divided by MAU: it measures how often, within a month, the average active user is active. A stickiness of 40 percent means the average monthly user is active about 12 days a month. Stickiness is a frequency metric, not a reach metric: two products can have the same DAU but different stickiness, and the one with higher stickiness has users who come back more often. MAU must be a trailing window, not a calendar month, so the ratio is meaningful on any given day.

@@ -1,0 +1,3 @@
+# RFM Segmentation
+
+RFM segments customers by three measures: Recency (days since last purchase), Frequency (number of purchases), and Monetary (total spend). Each measure is scored into quartiles from 1 to 4, where 4 is best. The three scores combine into a segment label: 444 is a high-value, recent, frequent, big-spending customer; 111 is a low-value, long-dormant, infrequent, small-spending one. At-risk customers were recently active and high-value but have stopped, and are targets for reactivation. The quartile combination is the actionable unit: marketing gets a named segment per customer and a strategy per segment instead of one mass campaign. RFM works on transaction logs and needs only a customer id, a transaction date, and an amount.

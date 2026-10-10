@@ -1,0 +1,3 @@
+# Retention
+
+Retention measures how many users come back after signup. N-day retention is the share of a signup cohort that is active exactly N days after signup; D1, D7, and D30 are the standard checkpoints. Rolling retention is fairer for products with sporadic usage: it asks whether a user was active at least once in a window, such as days 7 to 37, rather than on one exact day. Cohort retention groups users by signup month and tracks each cohort over time, revealing whether newer cohorts retain better and at what week the main drop happens. Retention is usually analyzed alongside acquisition channel, because channels that bring engaged users can look identical in raw volume but differ sharply in week-two retention.

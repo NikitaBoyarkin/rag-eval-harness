@@ -1,0 +1,21 @@
+id,answer,faithfulness,correctness,used_llm
+q01,CUPED (Controlled-Pre-Experiment-Data) reduces the variance of an A/B test estimate using a pre-period covariate.,1.0,0.14814814814814814,False
+q02,CUPED (Controlled-Pre-Experiment-Data) reduces the variance of an A/B test estimate using a pre-period covariate.,1.0,0.17857142857142858,False
+q03,"The ATE point estimate on Y_adj is unchanged in expectation but its variance shrinks by roughly (1 - rho^2), where rho is the correlation between the covariate and the outcome.",1.0,0.2903225806451613,False
+q04,"A T-learner fits one model per treatment arm and takes uplift as the difference of the two predictions, P(treatment) - P(control).",1.0,0.48,False
+q05,"The models are ranked by AUUC (area under the uplift curve), the Qini coefficient, and uplift at top-k: if you act on the top 20 percent scored by uplift, how much extra response do you get.",1.0,0.3103448275862069,False
+q06,"N-day retention is the share of a signup cohort that is active exactly N days after signup; D1, D7, and D30 are the standard checkpoints.",1.0,0.5652173913043478,False
+q07,"Rolling retention is fairer for products with sporadic usage: it asks whether a user was active at least once in a window, such as days 7 to 37, rather than on one exact day.",1.0,0.6470588235294118,False
+q08,A/B testing compares two variants (control and treatment) on a metric to decide whether a change works.,1.0,0.07692307692307693,False
+q09,A/B testing compares two variants (control and treatment) on a metric to decide whether a change works.,1.0,0.03125,False
+q10,Churn prediction models which users will stop being active.,1.0,0.0,False
+q11,"The business metric is recall at top decile and lift at top decile: if retention acts on the riskiest 10 percent of users, how many actual churners are caught.",1.0,0.8,False
+q12,"RFM segments customers by three measures: Recency (days since last purchase), Frequency (number of purchases), and Monetary (total spend).",1.0,0.6842105263157895,False
+q13,"RFM segments customers by three measures: Recency (days since last purchase), Frequency (number of purchases), and Monetary (total spend).",1.0,0.17142857142857143,False
+q14,"For each step you count the distinct sessions that reached it, then compute step-to-step conversion (this step divided by the previous) and overall conversion (this step divided by the first).",1.0,0.32,False
+q15,"Cohort LTV must be compared at the same age: a cohort that signed up last month looks smaller than one from six months ago simply because it has had less time to spend, not because it is worse.",1.0,0.3684210526315789,False
+q16,The gap between first-touch and lifetime revenue is itself a signal: large gaps mark channels with repeat-purchase potential worth investing in.,1.0,0.08571428571428572,False
+q17,"The matrix is triangular: a cohort that signed up last month has only one column observed, while an older cohort has many.",1.0,0.5769230769230769,False
+q18,"Stickiness is DAU divided by MAU: it measures how often, within a month, the average active user is active.",1.0,0.375,False
+q19,A running total uses SUM(amount) OVER (ORDER BY day ROWS UNBOUNDED PRECEDING).,1.0,0.6428571428571429,False
+q20,"The gaps-and-islands pattern labels consecutive runs by subtracting a row number from the date: day minus row_number is constant within one consecutive run and jumps at a gap, turning runs into groupable keys.",1.0,0.625,False
