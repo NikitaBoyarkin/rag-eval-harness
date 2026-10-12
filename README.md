@@ -1,5 +1,43 @@
 # RAG Evaluation Harness
 
+> Offline RAG evaluation harness (zero API keys): recall@5 1.00, MRR 1.00, faithfulness 1.00, correctness 0.37 on 20 labeled questions.
+
+## Navigation
+- 🌐 [Portfolio site](https://nikitaboyarkin.github.io)
+- 🏦 [Flagship case: Volta neobank](https://github.com/NikitaBoyarkin/volta-banking)
+- 🧪 Related: [churn-prediction](https://github.com/NikitaBoyarkin/churn-prediction) · [ml](https://github.com/NikitaBoyarkin/ml) · [sql-analytics-case-study](https://github.com/NikitaBoyarkin/sql-analytics-case-study)
+
+**On this page:** [Situation](#situation) · [Task](#task) · [Actions](#actions) · [Result](#result) · [What it shows](#what-it-shows) · [Results](#results-offline-k5-no-api-key) · [Quick start](#quick-start) · [Layout](#layout) · [Notes](#notes)
+
+## Situation
+
+Most RAG demos show a happy path and hide the failure modes; you cannot tell
+whether retrieval or generation is the weak layer. A RAG system has to be
+**measurable**, not just demonstrable, and the measurement has to run offline and
+reproducibly.
+
+## Task
+
+Build a retrieval-augmented generation pipeline with a proper offline evaluation
+harness — retrieval metrics (recall@k, MRR, precision@k) and generation metrics
+(faithfulness, answer correctness) over a labeled question set.
+
+## Actions
+
+- **Indexing** — 12 analytics concept docs chunked and TF-IDF-indexed with 1–2-grams.
+- **Retrieval** — cosine top-k over the TF-IDF matrix; dependency-light, fully offline, embeddings backend swappable.
+- **Generation** — Claude grounded in retrieved context when a key is set, else a deterministic extractive fallback; both return the same `Generation` record.
+- **Evaluation** — 20 labeled questions (`data/eval.jsonl`) with gold doc ids and answers; retrieval + generation scored separately.
+- **Zero-key baseline** — the whole harness runs end-to-end without `ANTHROPIC_API_KEY`, so eval is reproducible in CI.
+
+## Result
+
+- **1.00** — recall@5 (gold doc is rank-1 for all 20 questions on this corpus).
+- **1.00** — MRR: retrieval is perfect at this scale and topic separation.
+- **1.00** — faithfulness: the extractive baseline is fully grounded in retrieved context.
+- **0.37** — correctness by Jaccard token overlap with the gold answer.
+- **0.20** — precision@5, the honest cost of a k=5 window over a small corpus.
+
 A retrieval-augmented generation pipeline with a proper offline evaluation
 harness. The point: you can measure a RAG system, not just demo it — retrieval
 metrics (recall@k, MRR, precision@k) and generation metrics (faithfulness,
