@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+          enable-cache: true
+
+      # No lockfile; the `dev` extra is an optional-dependency, not a
+      # dependency-group, so run the README's documented command as-is.
+      # Tests run fully offline (TF-IDF retriever, committed corpus + eval.jsonl).
+      - name: Run tests
+        run: uv run --with scikit-learn --with pandas --with numpy --with pytest pytest -q
