@@ -173,3 +173,17 @@ Preflight: `bash scripts/preflight.sh` → `preflight: OK` (49 claims, registry 
 - Верхушка следующего цикла: **REQ-001 → REQ-003 → REQ-002** (правда → правда → глубина), каждый с тестом; REQ-004/REQ-005 — сразу за ними как «упаковка».
 - Запись в общий бэклог: строки пересекаются с `reports/loop/BACKLOG.md` B36 (faithfulness не может упасть) и B7 (упаковка rag) — обновить их статус, не дублировать.
 - Перепроверка: `bash scripts/preflight.sh` + `pytest -q` в члене собственной командой.
+
+## Статус исполнения (обновлено 2026-10-14, цикл `@portfolio-cycle-run`)
+
+| REQ | Статус | Подтверждение |
+|---|---|---|
+| REQ-001 | DONE | rag commit `ea74acc` (README + test); site `41ee446` (RU + EN кейс, внешний коммит). Прогон: faithfulness=1.0 на 20/20 — подстрока |
+| REQ-003 | DONE | `scripts/check_claims.py` → `rag_claims()` + 8 claim'ов; гейт 49→57; мутационно проверен (правка `eval.jsonl` → DRIFT) |
+| REQ-004 | DONE (внешний сеанс) | rag commit `59a97a2` → `.github/workflows/ci.yml` (pytest offline); найден уже сделанным |
+| REQ-002 | HUMAN | требуется решение владельца о негативном контроле |
+| REQ-005, REQ-006, REQ-007, REQ-008, REQ-009 | TODO | пере-проверены на диске после внешних коммитов — остаются валидными |
+| REQ-010 | HUMAN | переименование пакета — решение владельца |
+
+Бэклог: строки **B36/B49/B50** перенесены в «Выполнено»; новые авто — B51–B55; HUMAN — B56/B57. Цикл-лог:
+`reports/loop/cycles/2026-10-14.md` (секция «Cycle 2026-10-14 (c)»).
