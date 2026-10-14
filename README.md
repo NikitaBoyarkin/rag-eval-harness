@@ -1,6 +1,6 @@
 # RAG Evaluation Harness
 
-> Offline RAG evaluation harness (zero API keys): recall@5 1.00, MRR 1.00, faithfulness 1.00, correctness 0.37 on 20 labeled questions.
+> Offline RAG evaluation harness (zero API keys): on 20 labeled questions the retriever is perfect (recall@5 1.00, MRR 1.00) and the offline extractive baseline scores 0.37 answer-correctness. Faithfulness ≡ 1.00 is a **construction invariant** of the extractive answerer, not a quality result.
 
 ## Navigation
 - 🌐 [Portfolio site](https://nikitaboyarkin.github.io)
@@ -34,9 +34,13 @@ harness — retrieval metrics (recall@k, MRR, precision@k) and generation metric
 
 - **1.00** — recall@5 (gold doc is rank-1 for all 20 questions on this corpus).
 - **1.00** — MRR: retrieval is perfect at this scale and topic separation.
-- **1.00** — faithfulness: the extractive baseline is fully grounded in retrieved context.
 - **0.37** — correctness by Jaccard token overlap with the gold answer.
 - **0.20** — precision@5, the honest cost of a k=5 window over a small corpus.
+
+Faithfulness is deliberately **not** listed as a result: the offline extractive answerer returns a
+verbatim sentence of the retrieved top document, so faithfulness (share of answer tokens found in the
+retrieved context) is **1.00 by construction**, not by measurement. It is a documented invariant of the
+zero-key path; it only becomes a real measurement with `--llm` (see Notes).
 
 A retrieval-augmented generation pipeline with a proper offline evaluation
 harness. The point: you can measure a RAG system, not just demo it — retrieval
@@ -71,15 +75,16 @@ retrieval and the eval harness stay the same.
 | recall@5 | 1.00 |
 | MRR | 1.00 |
 | precision@5 | 0.20 |
-| faithfulness | 1.00 |
+| faithfulness (invariant, extractive path) | 1.00 |
 | correctness | 0.37 |
 
 Retrieval is perfect on this corpus (the gold doc is rank-1 for all 20
 questions — TF-IDF is enough at this scale and topic separation). The offline
-extractive baseline is fully grounded (faithfulness 1.0) and reaches 0.37
-correctness by token overlap. With `--llm` and an API key, generation scores
-rise while retrieval stays fixed — the harness separates the two so you can
-see which layer to improve.
+extractive baseline is grounded by construction — faithfulness ≡ 1.00 because
+the answer is copied from the context — and reaches 0.37 correctness by token
+overlap. With `--llm` and an API key, generation scores rise while retrieval
+stays fixed — the harness separates the two so you can see which layer to
+improve.
 
 Per-question breakdown: `reports/retrieval_per_question.csv`,
 `reports/generation_per_question.csv`.
@@ -118,7 +123,9 @@ rag-eval-harness/
 - Faithfulness here is a grounding proxy (answer tokens in context), not a
   true entailment check. A real system would use an LLM-as-judge or an
   entailment model. The proxy is deliberately simple so it runs offline and
-  deterministically.
+  deterministically — which is exactly why it is ≡ 1.00 on the extractive path
+  (the answer is a substring of the context): read it as a construction
+  invariant, not a score.
 - Correctness is Jaccard token overlap with the gold answer — a rough but
   reproducible signal, good enough to compare retrieval depths, backends, or
   prompts.
