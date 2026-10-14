@@ -4,6 +4,7 @@ Retrieval: recall@k, MRR, precision@k.
 Generation: faithfulness (answer grounded in retrieved context) and answer
 correctness (token overlap with the gold answer).
 """
+
 from __future__ import annotations
 
 import json
@@ -30,14 +31,18 @@ def retrieval_metrics(index: Index, eval_set: list[dict], k: int = 5) -> pd.Data
         retrieved = [d for d, _ in search(index, item["question"], top_k=k)]
         hits = [1 if d in gold else 0 for d in retrieved]
         first_hit = next((i + 1 for i, h in enumerate(hits) if h), None)
-        rows.append({
-            "id": item["id"],
-            "recall@k": float(bool(hits) and any(hits)),   # 1 if any gold in top-k
-            "mrr": 1.0 / first_hit if first_hit else 0.0,
-            "precision@k": sum(hits) / k,
-            "gold": list(gold),
-            "retrieved": retrieved,
-        })
+        rows.append(
+            {
+                "id": item["id"],
+                # recall@k = share of gold docs retrieved in top-k (not a binary hit:
+                # a multi-gold question with only some gold retrieved scores < 1.0).
+                "recall@k": len(set(retrieved) & gold) / (len(gold) or 1),
+                "mrr": 1.0 / first_hit if first_hit else 0.0,
+                "precision@k": sum(hits) / k,
+                "gold": list(gold),
+                "retrieved": retrieved,
+            }
+        )
     return pd.DataFrame(rows)
 
 
@@ -61,6 +66,7 @@ def correctness(answer: str, gold: str) -> float:
 
 def run_eval(force_offline: bool = True, k: int = 5) -> dict:
     from . import config as C
+
     index = build_index()
     eval_set = [json.loads(l) for l in C.EVAL.read_text().splitlines() if l.strip()]
     retr = retrieval_metrics(index, eval_set, k=k)
@@ -68,13 +74,15 @@ def run_eval(force_offline: bool = True, k: int = 5) -> dict:
     gen_rows = []
     for item in eval_set:
         g = generate(item["question"], index, top_k=k, force_offline=force_offline)
-        gen_rows.append({
-            "id": item["id"],
-            "answer": g.answer,
-            "faithfulness": faithfulness(g.answer, g.context_doc_ids, index),
-            "correctness": correctness(g.answer, item["gold_answer"]),
-            "used_llm": g.used_llm,
-        })
+        gen_rows.append(
+            {
+                "id": item["id"],
+                "answer": g.answer,
+                "faithfulness": faithfulness(g.answer, g.context_doc_ids, index),
+                "correctness": correctness(g.answer, item["gold_answer"]),
+                "used_llm": g.used_llm,
+            }
+        )
     gen = pd.DataFrame(gen_rows)
 
     summary = {
@@ -92,4 +100,3 @@ def run_eval(force_offline: bool = True, k: int = 5) -> dict:
         },
     }
     return {"summary": summary, "retrieval": retr, "generation": gen}
-

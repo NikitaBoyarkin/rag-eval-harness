@@ -53,3 +53,20 @@ def test_eval_summary_metrics():
 def test_correctness_jaccard_sanity():
     assert correctness("CUPED reduces variance", "CUPED reduces variance") == 1.0
     assert correctness("completely different words", "nothing shared here zzz") == 0.0
+
+
+def test_recall_at_k_counts_all_gold_docs(monkeypatch):
+    """recall@k is the share of gold docs retrieved, not a binary hit (REQ-007)."""
+    from src import eval as ev
+
+    idx = build_index()
+    ranked = [("cuped", 0.9), ("rfm", 0.8), ("ltv", 0.7)]
+
+    def fake_search(index, question, top_k):
+        return ranked[:top_k]
+
+    monkeypatch.setattr(ev, "search", fake_search)
+    eval_set = [{"id": "m", "question": "q", "gold_doc_ids": ["cuped", "rfm", "churn"]}]
+    df = ev.retrieval_metrics(idx, eval_set, k=3)
+    # 2 of 3 gold docs are in top-3 → recall 2/3, not 1.0
+    assert abs(float(df["recall@k"].iloc[0]) - 2 / 3) < 1e-9

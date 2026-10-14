@@ -11,11 +11,11 @@ dependencies = [
     "pandas>=2.0",
     "numpy>=1.24",
     "scikit-learn>=1.4",
-    "anthropic>=0.40",
 ]
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]
+llm = ["anthropic>=0.40"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src"]

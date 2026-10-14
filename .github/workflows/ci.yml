@@ -17,8 +17,8 @@ jobs:
           python-version: "3.12"
           enable-cache: true
 
-      # No lockfile; the `dev` extra is an optional-dependency, not a
-      # dependency-group, so run the README's documented command as-is.
+      # uv.lock is committed for reproducible resolution; both extras are
+      # optional-dependencies, so run the README's documented command as-is.
       # Tests run fully offline (TF-IDF retriever, committed corpus + eval.jsonl).
       - name: Run tests
         run: uv run --with scikit-learn --with pandas --with numpy --with pytest pytest -q

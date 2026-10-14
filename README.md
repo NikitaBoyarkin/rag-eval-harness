@@ -64,7 +64,8 @@ retrieval and the eval harness stay the same.
   sentence from the top doc. Both paths return the same `Generation` record, so
   eval is reproducible offline.
 - **Evaluation**: 20 labeled questions (`data/eval.jsonl`) with gold doc ids and
-  gold answers. Retrieval: recall@k, MRR, precision@k. Generation: faithfulness
+  gold answers. Retrieval: recall@k (share of gold docs retrieved), MRR,
+  precision@k. Generation: faithfulness
   (share of answer tokens grounded in retrieved context) and answer
   correctness (Jaccard token overlap with the gold answer).
 

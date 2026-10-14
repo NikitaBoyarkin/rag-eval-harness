@@ -182,7 +182,10 @@ Preflight: `bash scripts/preflight.sh` → `preflight: OK` (49 claims, registry 
 | REQ-003 | DONE | `scripts/check_claims.py` → `rag_claims()` + 8 claim'ов; гейт 49→57; мутационно проверен (правка `eval.jsonl` → DRIFT) |
 | REQ-004 | DONE (внешний сеанс) | rag commit `59a97a2` → `.github/workflows/ci.yml` (pytest offline); найден уже сделанным |
 | REQ-002 | HUMAN | требуется решение владельца о негативном контроле |
-| REQ-005, REQ-006, REQ-007, REQ-008, REQ-009 | TODO | пере-проверены на диске после внешних коммитов — остаются валидными |
+| REQ-005 | DONE | `uv.lock` закоммичен (убран из `.gitignore`); `uv lock --check` → OK |
+| REQ-006 | DONE | `anthropic` → optional extra `llm` в `pyproject.toml`; базовый sync без него |
+| REQ-007 | DONE | `recall@k` = доля найденных gold-доков (не бинарный hit); юнит-тест на multi-gold (`src/eval.py:36`) |
+| REQ-008, REQ-009 | TODO | пере-проверены на диске — остаются валидными |
 | REQ-010 | HUMAN | переименование пакета — решение владельца |
 
 Бэклог: строки **B36/B49/B50** перенесены в «Выполнено»; новые авто — B51–B55; HUMAN — B56/B57. Цикл-лог:
