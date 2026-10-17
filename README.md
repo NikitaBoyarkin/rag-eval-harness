@@ -7,6 +7,8 @@
 - 🏦 [Flagship case: Volta neobank](https://github.com/NikitaBoyarkin/volta-banking)
 - 🧪 Related: [churn-prediction](https://github.com/NikitaBoyarkin/churn-prediction) · [ml](https://github.com/NikitaBoyarkin/ml) · [sql-analytics-case-study](https://github.com/NikitaBoyarkin/sql-analytics-case-study)
 
+**▶ [Diagram: Offline RAG evaluation harness, measured layer by layer](docs/diagrams/rag-eval-harness.html)** — opens in a browser, no install, no build
+
 **On this page:** [Situation](#situation) · [Task](#task) · [Actions](#actions) · [Result](#result) · [What it shows](#what-it-shows) · [Results](#results-offline-k5-no-api-key) · [Quick start](#quick-start) · [Layout](#layout) · [Notes](#notes)
 
 ## Situation
